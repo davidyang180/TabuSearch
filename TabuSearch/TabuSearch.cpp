@@ -72,16 +72,16 @@ void read_file(FILE *p) {
 		adj_color_table[i] = new int[color_number] {0};
 	first_color = new bool[point_number + 1]{ false };
 	//随机生成结点的颜色值（可用先验生成）
-	/*
+	
 	srand(time(NULL));
 	for (int i = 1; i <= point_number; i++)
 		point_color[i] = rand() % color_number;
-	*/
 	
+	/*
 	for (int i = 1; i <= point_number; i++) {
 		first_distribution(i, (i - 1) % color_number);
 	}
-	
+	*/
 
 	for (int i = 1; i <= point_number; i++) {
 		for (int j = i+1; j <= point_number; j++) {
@@ -143,7 +143,7 @@ void findmove(int &move_point, int &new_color, long &iter) {
 	}
 	//if (((iter + 1) % 20) == 0)
 	//	best_delter = 1;
-	if (best_delter != 0) {
+	//if (best_delter != 0) {
 		srand(time(NULL));
 		best_move = rand() % eque_number;
 		move_point = eque_change[best_move][0];
@@ -155,9 +155,9 @@ void findmove(int &move_point, int &new_color, long &iter) {
 		//if (iter > 50)
 		//cout << best_move << "选择了将颜色" << move_point << "交换到颜色" << new_color << endl;
 		makemove(move_point, new_color, iter);
-	}
+	//}
 	
-	else if (best_delter == 0) {
+	//else if (best_delter == 0) {
 		//int max = 0;
 		/*
 		int i = 0;
@@ -194,22 +194,22 @@ void findmove(int &move_point, int &new_color, long &iter) {
 		}*/
 		
 		
-		for (int i = 0; i < eque_number; i++) {
+		//for (int i = 0; i < eque_number; i++) {
 			/*
 			if (point_edge_number[eque_change[i][0]] > max) {
 				best_move = i;
 				max = point_edge_number[eque_change[i][0]];
 			}*/
 
-			move_point = eque_change[i][0];
-			new_color = eque_change[i][1];
+			//move_point = eque_change[i][0];
+			//new_color = eque_change[i][1];
 			//if (iter > 50)
 			//cout << i << "选择了将颜色" << move_point << "交换到颜色" << new_color << endl;
-			if(adj_color_table[move_point][point_color[move_point]] == adj_color_table[move_point][new_color])
-			makemove(move_point, new_color, iter);
-		}
+			//if(adj_color_table[move_point][point_color[move_point]] == adj_color_table[move_point][new_color])
+			//makemove(move_point, new_color, iter);
+		//}
 
-	}
+	//}
 
 }
 void makemove(int &move_point, int &new_color, long &iter) {
@@ -262,11 +262,9 @@ void print() {
 }
 int main()
 {
-	int count = 12;
-	const char* file_name = "./data/DSJC500.1.col";
+	const char* file_name = "./data/DSJC125.1.col";
 	FILE *p = freopen(file_name, "r", stdin);
-	while (count) {
-		color_number = 12;
+		color_number = 5;
 		int move_point = 0, new_color = 0;
 		long iter = 0;
 		read_file(p);
@@ -300,8 +298,5 @@ int main()
 		delete[] point_color;
 		delete[] first_color;
 		delete[] point_edge_number;
-		
-		count--;
-	}
 	fclose(stdin);
 }
